@@ -47,11 +47,15 @@ This script implements four view modes, which stylize the way text is detected. 
 
 _(View mode 1: Draws boxes on text with >75 confidence level)_
 
+<br />
+
 
 
 <img src="https://user-images.githubusercontent.com/79942554/114243144-f1e1dd00-9940-11eb-88e7-a32572ebacc1.gif" width="700">
 
 _(View mode 2: Draws red boxes on low-confidence text and green on high-confidence text)_
+
+<br />
 
 
 
@@ -59,11 +63,15 @@ _(View mode 2: Draws red boxes on low-confidence text and green on high-confiden
 
 _(View mode 3: Color changes according to each word's confidence; brighter indicates higher confidence)_
 
+<br />
+
 
 
 <img src="https://user-images.githubusercontent.com/79942554/114243187-01f9bc80-9941-11eb-9384-3e2b983b2498.gif" width="700">
 
 _View mode 4: Draws a box around detected text regardless of confidence_
+
+<br />
 
 
 If no view mode is specified, the OCR will run with mode 1.
