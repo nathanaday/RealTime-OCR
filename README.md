@@ -8,11 +8,14 @@ https://github.com/nathanaday/RealTime-OCR
 Perform text detection in a variety of languages with your computer webcam using Google Tesseract OCR and OpenCV. 
 This script achieves a real-time OCR effect by incorporating multi-threading.
 
+<img src="https://user-images.githubusercontent.com/79942554/114243078-d37be180-9940-11eb-849c-29b606646bb8.jpg" width="500">
+
 ### USE
 
 This a command-line script. The only required argument is a full path to the Tesseract executable from the Tesseract install (see DEPENDENCIES below for more info)
 
 `python Main.py -t '<full_path_to_your_tesseract_executable>' [-c ] [-v] [-sv] [-l] [-sl]`
+
 
 optional arguments:
 
@@ -38,17 +41,29 @@ The crop area allows OCR to be performed on a smaller frame and therefore improv
 
 #### View Mode
 
-This script implements four view modes, which stylize the way text is detected:
+This script implements four view modes, which stylize the way text is detected. To specify a view mode, use -v <int mode> after the Main.py call
 
 - View mode 1: Draws boxes on text with >75 confidence level
 
+<img src="https://user-images.githubusercontent.com/79942554/114243131-ebebfc00-9940-11eb-808e-51179cd4139e.gif" width="700">
+
+
 - View mode 2: Draws red boxes on low-confidence text and green on high-confidence text
+
+<img src="https://user-images.githubusercontent.com/79942554/114243144-f1e1dd00-9940-11eb-88e7-a32572ebacc1.gif" width="700">
+
 
 - View mode 3: Color changes according to each word's confidence; brighter indicates higher confidence
 
+<img src="https://user-images.githubusercontent.com/79942554/114243169-fc9c7200-9940-11eb-9788-dc6894cb9db9.gif" width="700">
+
+
 - View mode 4: Draws a box around detected text regardless of confidence
 
-If no view mode is specified, the OCR will run with mode 1. Alternatives can be specified using -v <int mode> after the Main.py call
+<img src="https://user-images.githubusercontent.com/79942554/114243187-01f9bc80-9941-11eb-9384-3e2b983b2498.gif" width="700">
+
+
+If no view mode is specified, the OCR will run with mode 1.
 
 To see the view options and their descriptions in the command line, evoke -sv or --show_views
 
