@@ -95,7 +95,7 @@ If no language code is specified, the OCR defaults to English.
 
 ### DEPENDENCIES
 
-This script requires 
+This script requires:
 - a Tesseract install
 - the python wrapper for Teseract (pytesseract)
 - OpenCV for python (CV2)
