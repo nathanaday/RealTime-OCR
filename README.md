@@ -43,24 +43,27 @@ The crop area allows OCR to be performed on a smaller frame and therefore improv
 
 This script implements four view modes, which stylize the way text is detected. To specify a view mode, use -v <int mode> after the Main.py call
 
-- View mode 1: Draws boxes on text with >75 confidence level
-
 <img src="https://user-images.githubusercontent.com/79942554/114243131-ebebfc00-9940-11eb-808e-51179cd4139e.gif" width="700">
 
+_(View mode 1: Draws boxes on text with >75 confidence level)_
 
-- View mode 2: Draws red boxes on low-confidence text and green on high-confidence text
+
 
 <img src="https://user-images.githubusercontent.com/79942554/114243144-f1e1dd00-9940-11eb-88e7-a32572ebacc1.gif" width="700">
 
+_(View mode 2: Draws red boxes on low-confidence text and green on high-confidence text)_
 
-- View mode 3: Color changes according to each word's confidence; brighter indicates higher confidence
+
 
 <img src="https://user-images.githubusercontent.com/79942554/114243169-fc9c7200-9940-11eb-9788-dc6894cb9db9.gif" width="700">
 
+_(View mode 3: Color changes according to each word's confidence; brighter indicates higher confidence)_
 
-- View mode 4: Draws a box around detected text regardless of confidence
+
 
 <img src="https://user-images.githubusercontent.com/79942554/114243187-01f9bc80-9941-11eb-9384-3e2b983b2498.gif" width="700">
+
+_View mode 4: Draws a box around detected text regardless of confidence_
 
 
 If no view mode is specified, the OCR will run with mode 1.
