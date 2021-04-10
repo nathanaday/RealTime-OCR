@@ -11,7 +11,7 @@ This script achieves a real-time OCR effect by incorporating multi-threading.
 
 ### BACKGROUND
 
-I had my fresh install of Tesseract, some CV2 knowledge at my fingertips, but when I set up a VideoCapture and performed OCR on the stream of video frames I was floored by how slow the process was running. The problem: performing OCR on each frame before sending it to a display introduces a massive bottleneck. CV2 captures the frame from the camera, pytesseract processes it, meanwhile the display is waitining on pytesseract to finish its process before the frame can be displayed.
+I had my fresh install of Tesseract, some CV2 knowledge at my fingertips, but when I set up a VideoCapture and performed OCR on the stream of video frames I was floored by how slow the process was running. It was barely usable. The problem: performing OCR on each frame before sending it to a display introduces a massive bottleneck. CV2 captures the frame from the camera, pytesseract processes it, meanwhile the display is waitining on pytesseract to finish its process before the frame can be displayed.
 
 I wanted to create a CV2 VideoCapture and display the webcam feed at it's natural pace, then run OCR in the background at it's own pace. It's ok if OCR isn't performed on every frame. That would be nice, but pytesseract simply isn't fast enough for that. However, we also want to avoid creating a long queue of frames from the videocapture that pytesseract must process in order, one by one, so that after a few minutes of live videostream pytesseract is working on a frame captured a minute ago.
 
@@ -191,13 +191,13 @@ requirements.txt
 
 ### RESOURCES AND EXTENDED USE
 
-This script was written with customizability in mind. It's easy to add custom view modes, edit the pre-processing frames for the OCR, or customize the output displayed in the video capture. These changes can be maid in OCR.py. To add custom command line arguments, see Main.py. 
+This script was written with customizability in mind. It's easy to add custom view modes, edit the pre-processing frames for the OCR, or customize the output displayed in the video capture. These changes can be made in OCR.py. To add custom command line arguments, see Main.py. 
 
-OpenCV is an incredbily robust computer vision package. Because this script already imports CV2, the OCR core could be swapped for CV2's facial recognition features, boundary detection, etc. and still achieve the speed from multi-threading.
+OpenCV is an incredbily robust computer vision package. Because this script already imports CV2, the OCR core could be swapped for CV2's facial recognition features, boundary detection, etc. and still achieve the seamless video display from multi-threading.
 
 Tesseract has two additional data sets that can be configured: a "fast" dataset, and a "best" dataset.
 
-[The fast data will speed up the OCR process and avoid text detection lag, but at the cost of accuracy.](https://github.com/tesseract-ocr/tessdata_fast)
+[The fast data will speed up the OCR process, but at the cost of accuracy.](https://github.com/tesseract-ocr/tessdata_fast)
 
 [THe best data is trained to produce more accurate detection, but at the cost of speed] (https://github.com/tesseract-ocr/tessdata_best)
 
