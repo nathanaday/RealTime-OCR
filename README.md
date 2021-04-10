@@ -11,7 +11,7 @@ This script achieves a real-time OCR effect by incorporating multi-threading.
 
 ### BACKGROUND
 
-I had my fresh install of Tesseract, some CV2 knowledge at my fingertips, but when I set up a VideoCapture and performed OCR on the stream of video frames I was floored by how slow the process was running. It was almost usable. The problem: performing OCR on each frame before sending it to a display introduces a massive bottleneck. CV2 captures the frame from the camera, pytesseract processes it, meanwhile the display is waitining on pytesseract to finish its process before the frame can be displayed.
+I had my fresh install of Tesseract, some CV2 knowledge at my fingertips, but when I set up a VideoCapture and performed OCR on the stream of video frames I was floored by how slow the process was running. It was almost unusable. The problem: performing OCR on each frame before sending it to a display introduces a massive bottleneck. CV2 captures the frame from the camera, pytesseract processes it, meanwhile the display is waitining on pytesseract to finish its process before the frame can be displayed.
 
 I wanted to create a CV2 VideoCapture and display the webcam feed at it's natural pace, then run OCR in the background at it's own pace. It's ok if OCR isn't performed on every frame. That would be nice, but pytesseract simply isn't fast enough for that. However, we also want to avoid creating a long queue of frames from the videocapture that pytesseract must process in order, one by one, so that after a few minutes of live videostream pytesseract is working on a frame captured a minute ago.
 
