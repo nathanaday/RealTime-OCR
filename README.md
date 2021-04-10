@@ -8,7 +8,17 @@ https://github.com/nathanaday/RealTime-OCR
 Perform text detection in a variety of languages with your computer webcam using Google Tesseract OCR and OpenCV. 
 This script achieves a real-time OCR effect by incorporating multi-threading.
 
-<img src="https://user-images.githubusercontent.com/79942554/114243078-d37be180-9940-11eb-849c-29b606646bb8.jpg" width="500">
+
+### BACKGROUND
+
+I had my fresh install of Tesseract, some CV2 knowledge at my fingertips, but when I set up a VideoCapture and performed OCR on the stream of video frames I was floored by how slow the process was running. The problem: performing OCR on each frame before sending it to a display introduces a massive bottleneck. CV2 captures the frame from the camera, pytesseract processes it, meanwhile the display is waitining on pytesseract to finish its process before the frame can be displayed.
+
+I wanted to create a CV2 VideoCapture and display the webcam feed at it's natural pace, then run OCR in the background at it's own pace. It's ok if OCR isn't performed on every frame. That would be nice, but pytesseract simply isn't fast enough for that. However, we also want to avoid creating a long queue of frames from the videocapture that pytesseract must process in order, one by one, so that after a few minutes of live videostream pytesseract is working on a frame captured a minute ago.
+
+The solution: multihreading with classes. The CV2 video stream is instantiated in a dedicated class, in a dedicated thread, so it's always reading live frames from the webcam and storing the most recent frame as an instance attribute. The video display can access these frames and show them in real-time. Meanwhile, pytesseract OCR has its own dedicated class, running in a dedicated thread, and it simply grabs the most recent frame from the video stream class, processes it, and outputs the data. By the time pytesseract is ready for its next frame, maybe 2 or 3 frames have passed through the video stream, but that's fine--the OCR class grabs, again, the most recent frame. 
+
+The result is a capable real-time OCR. True, the bounding boxes might lag if the text is moved around quickly, and sometimes it needs a moment to detect the text, but this is an astronomical improvement from the ultra-slow, bottlenecked video stream you get from processing in a single thread.
+
 
 ### USE
 
@@ -78,29 +88,41 @@ If no view mode is specified, the OCR will run with mode 1.
 
 To see the view options and their descriptions in the command line, evoke -sv or --show_views
 
-
 #### Language
 
-The OCR can detect a variety of langauges since version 4+. A language can be specified by appending the Main.py call with "-l <language code>"
+Tesseract can detect a variety of langauges since version 4+. A language can be specified to the OCR by appending the Main.py call with "-l <language code>"
 
-For example, to detect simplified Chinese, use:
+For example, to detect simplified Chinese use:
 
 `python Main.py -t '<full_path_to_your_tesseract_executable>' -l chi_sim`
 
-Multiple languages can be simultaneously detected by appending the codes with '+'
-
-To detect both simplified chinese and traditional chinese, use:
+Multiple languages can be simultaneously detected by appending the codes with '+'. To detect both simplified chinese and traditional chinese, use:
 
 `python Main.py -t '<full_path_to_your_tesseract_executable>' -l chi_sim+chi_tra`
 
-A list of all the languages codes can be printed in the command line by evoking '-sl'.
+A list of all language codes can be printed in the command line by evoking '-sl'.
 
 `python Main.py -t '<full_path_to_your_tesseract_executable>' -sl`
 
-Note, the printed list of available langauges comes from the tesseract supported languages, which should be included in an up-to-date install, but evoking the lagnauge code will have no effect if the .traindata file for that language is nowhere in the data files.
+Note, the printed list of available langauges comes from the tesseract supported languages, which should be included in an up-to-date install. However, evoking the lagnauge code at runtime will have no effect if the .traindata file for that language is nowhere in your Tesseract files.
 
 If no language code is specified, the OCR defaults to English.
 
+#### Image Capture and Quit
+
+While running an OCR stream, push "c" to capture the current frame and save as a .jpeg to the working directory. A capture will also print the current detected text to the command line:
+
+
+![OCR 2021-04-09 at 13:06:35-5](https://user-images.githubusercontent.com/79942554/114278245-b51af200-99e3-11eb-835c-cad26dd7295f.jpg)
+
+`>>> REAL TIME OCR with pytesseract and CV2 “Beautiful is better than ugly. Explicit is better than implicit. Simple is better than complex. Complex is better than complicated.”
+OCR 2021-04-09 at 13:06:35-5.jpg`
+
+
+![OCR 2021-04-09 at 12:59:54-11](https://user-images.githubusercontent.com/79942554/114278250-bba96980-99e3-11eb-85cf-0c27ca3d997a.jpg)
+
+`>>> 实时 OCR 跟 pytesseract, CV2 优美 胜 于 丑陋 ， 显 明 胜 于 隐 含 。 简单 胜 于 复杂 ， 复 杂 胜 于 繁复 。 扁平 胜 于 ， 稀 胜 于 密集 。 可 读 性 会 起 作用 。
+OCR 2021-04-09 at 12:59:54-10.jpg`
 
 
 
@@ -125,21 +147,21 @@ To install the Python wrapper for Tesseract, use:
 
 `pip install pytesseract`
 
-(See the pytesseract docs for further help.)[https://pypi.org/project/pytesseract/]
+[See the pytesseract docs for further help.](https://pypi.org/project/pytesseract/)
 
 
 To install OpenCV for Python, use:
 
 `pip install opencv-python`
 
-(See the opencv-python docs for further help.)[https://pypi.org/project/opencv-python/]
+[See the opencv-python docs for further help.](https://pypi.org/project/opencv-python/)
 
 
 For numpy, use:
 
  `pip install numpy`
  
- (See the numpy docs for further help.)[https://numpy.org/install/]
+ [See the numpy docs for further help.](https://numpy.org/install/)
  
  
  Tesseract should come with .traindata files that supports a wide variety of foreign languages. In any case, the repo for language files can be found here:
@@ -168,7 +190,20 @@ requirements.txt
 
 
 ### RESOURCES AND EXTENDED USE
-...
+
+This script was written with customizability in mind. It's easy to add custom view modes, edit the pre-processing frames for the OCR, or customize the output displayed in the video capture. These changes can be maid in OCR.py. To add custom command line arguments, see Main.py. 
+
+OpenCV is an incredbily robust computer vision package. Because this script already imports CV2, the OCR core could be swapped for CV2's facial recognition features, boundary detection, etc. and still achieve the speed from multi-threading.
+
+Tesseract has two additional data sets that can be configured: a "fast" dataset, and a "best" dataset.
+
+[The fast data will speed up the OCR process and avoid text detection lag, but at the cost of accuracy.](https://github.com/tesseract-ocr/tessdata_fast)
+
+[THe best data is trained to produce more accurate detection, but at the cost of speed] (https://github.com/tesseract-ocr/tessdata_best)
+
 
 ### SUPPORT
-...
+
+Questions and bugs can be posted on the project's (github page)[https://github.com/nathanaday/RealTime-OCR] or emailed to nraday1221@gmail.com
+
+
