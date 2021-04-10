@@ -115,13 +115,13 @@ While running an OCR stream, push "c" to capture the current frame and save as a
 
 ![OCR 2021-04-09 at 13:06:35-5](https://user-images.githubusercontent.com/79942554/114278245-b51af200-99e3-11eb-835c-cad26dd7295f.jpg)
 
-`>>> REAL TIME OCR with pytesseract and CV2 “Beautiful is better than ugly. Explicit is better than implicit. Simple is better than complex. Complex is better than complicated.”
+`RealTime-OCR user$ REAL TIME OCR with pytesseract and CV2 “Beautiful is better than ugly. Explicit is better than implicit. Simple is better than complex. Complex is better than complicated.”
 OCR 2021-04-09 at 13:06:35-5.jpg`
 
 
 ![OCR 2021-04-09 at 12:59:54-11](https://user-images.githubusercontent.com/79942554/114278250-bba96980-99e3-11eb-85cf-0c27ca3d997a.jpg)
 
-`>>> 实时 OCR 跟 pytesseract, CV2 优美 胜 于 丑陋 ， 显 明 胜 于 隐 含 。 简单 胜 于 复杂 ， 复 杂 胜 于 繁复 。 扁平 胜 于 ， 稀 胜 于 密集 。 可 读 性 会 起 作用 。
+`RealTime-OCR user$ 实时 OCR 跟 pytesseract, CV2 优美 胜 于 丑陋 ， 显 明 胜 于 隐 含 。 简单 胜 于 复杂 ， 复 杂 胜 于 繁复 。 扁平 胜 于 ， 稀 胜 于 密集 。 可 读 性 会 起 作用 。
 OCR 2021-04-09 at 12:59:54-10.jpg`
 
 
