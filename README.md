@@ -201,11 +201,11 @@ This script was written with customizability in mind. It's easy to add custom vi
 
 OpenCV is an incredbily robust computer vision package. Because this script already imports CV2, the OCR core could be swapped for CV2's facial recognition features, boundary detection, etc. and still achieve the seamless video display from multi-threading.
 
-Tesseract has two additional data sets that can be configured: a "fast" dataset, and a "best" dataset.
+Tesseract has two additional data sets that can be configured: a [fast dataset](https://github.com/tesseract-ocr/tessdata_fast), and a [best dataset](https://github.com/tesseract-ocr/tessdata_best).
 
-[The fast data will speed up the OCR process, but at the cost of accuracy.](https://github.com/tesseract-ocr/tessdata_fast)
+The fast data will speed up the OCR process, but at the cost of accuracy.
 
-[THe best data is trained to produce more accurate detection, but at the cost of speed] (https://github.com/tesseract-ocr/tessdata_best)
+THe best data is trained to produce more accurate detection, but at the cost of speed.
 
 
 ### SUPPORT
