@@ -8,14 +8,7 @@ https://github.com/nathanaday/RealTime-OCR
 Perform text detection in a variety of languages with your computer webcam using Google Tesseract OCR and OpenCV. 
 This script achieves a real-time OCR effect by incorporating multi-threading.
 
-
-### BACKGROUND
-
-I wanted to make a text-detection script that takes input from a camera and draws bounding boxes on the text in real-time. So, I set up a CV2 VideoCapture, used Tesseract to analyze each frame, and displayed the result in a video-stream window. I was floored by how slow the process was running. It was almost unusable. The problem: performing OCR on each frame before sending it to a display introduces a massive bottleneck. CV2 captures the frame from the camera, pytesseract processes it, meanwhile the display is waiting on pytesseract to finish its process before the frame can be displayed.
-
-The solution: multi-threading with classes. The CV2 video stream is instantiated in a dedicated class, in a dedicated thread, so it's always reading live frames from the webcam and storing the most recent frame as an instance attribute. The video display can access these frames and show them in real-time. Meanwhile, pytesseract OCR has its own dedicated class, running in a dedicated thread, and it simply grabs the most recent frame from the video stream class, processes it, and outputs the data. By the time pytesseract is ready for its next frame, maybe 2 or 3 frames have passed through the video stream, but that's fine--the OCR class grabs, again, the most recent frame. 
-
-The result is a capable real-time OCR. True, the bounding boxes might lag if the text is moved around quickly, and sometimes it needs a moment to detect the text, but this is an astronomical improvement from the ultra-slow, bottlenecked video stream you get from processing in a single thread.
+The CV2 video stream is instantiated in a dedicated class, in a dedicated thread, so it's always reading live frames from the webcam and storing the most recent frame as an instance attribute. The video display can access these frames and show them in real-time. Meanwhile, pytesseract OCR has its own dedicated class, running in a dedicated thread, and it simply grabs the most recent frame from the video stream class, processes it, and outputs the data. The result is a capable real-time OCR. True, the bounding boxes might lag if the text is moved around quickly, and sometimes it needs a moment to detect the text, but this is an astronomical improvement from the ultra-slow, bottlenecked video stream you get from processing in a single thread.
 
 
 ### USE
@@ -38,6 +31,8 @@ optional arguments:
   -l , --language    code for tesseract language, use + to add multiple (ex: chi_sim+chi_tra)
   
   -sl, --show_langs  show list of tesseract (4.0+) supported langs
+  
+   -s, --src.        SRC video source for video capture
 
 required named arguments:
   -t , --tess_path   path to the cmd root of tesseract install (see docs for further help)
@@ -85,6 +80,19 @@ _View mode 4: Draws a box around detected text regardless of confidence_
 If no view mode is specified, the OCR will run with mode 1.
 
 To see the view options and their descriptions in the command line, evoke -sv or --show_views
+
+
+#### SRC Video Source
+
+In the case of multiple camera ports, the src for the desired video input can be specified with the -s command-line arguemnt. Without specification, the src defaults to 0, which for most users is a built-in webcam.
+
+Using SRC source 0:
+
+`python Main.py -t '<full_path_to_your_tesseract_executable>' -s 0`
+
+Using SRC source 1:
+
+`python Main.py -t '<full_path_to_your_tesseract_executable>' -s 1`
 
 #### Language
 
