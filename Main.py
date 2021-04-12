@@ -45,6 +45,8 @@ def main():
                         metavar='', default=None)
     parser.add_argument("-sl", "--show_langs", help="show list of tesseract (4.0+) supported langs",
                         action="store_true")
+    parser.add_argument("-s", "--src", help="SRC video source for video capture",
+                        default=0, type=int)
 
     args = parser.parse_args()
 
@@ -56,7 +58,7 @@ def main():
 
     # This is where OCR is started...
     OCR.tesseract_location(args.tess_path)
-    OCR.ocr_stream(view_mode=args.view_mode, crop=args.crop, language=args.language)
+    OCR.ocr_stream(view_mode=args.view_mode, source=args.src, crop=args.crop, language=args.language)
 
 
 if __name__ == '__main__':
