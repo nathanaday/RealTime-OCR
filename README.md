@@ -15,7 +15,7 @@ The CV2 video stream is instantiated in a dedicated class, in a dedicated thread
 
 This a command-line script. The only required argument is a full path to the Tesseract executable from the Tesseract install (see DEPENDENCIES below for more info)
 
-`python Main.py -t '<full_path_to_your_tesseract_executable>' [-c ] [-v] [-sv] [-l] [-sl]`
+`python Main.py -t '<full_path_to_your_tesseract_executable>' [-c ] [-v] [-sv] [-l] [-sl] [-s]`
 
 
 optional arguments:
