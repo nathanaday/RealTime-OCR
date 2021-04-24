@@ -210,6 +210,6 @@ THe best data is trained to produce more accurate detection, but at the cost of 
 
 ### SUPPORT
 
-Questions and bugs can be posted on the project's (github page)[https://github.com/nathanaday/RealTime-OCR] or emailed to nraday1221@gmail.com
+Questions and bugs can be posted on the project's [github page](https://github.com/nathanaday/RealTime-OCR) or emailed to nraday1221@gmail.com
 
 
