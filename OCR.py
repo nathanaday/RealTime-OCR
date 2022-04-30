@@ -324,9 +324,9 @@ def put_ocr_boxes(boxes, frame, height, crop_width=0, crop_height=0, view_mode=1
                     x += crop_width  # If tesseract was performed on a cropped image we need to 'convert' to full frame
                     y += crop_height
 
-                    conf_thresh, color = views(view_mode, int(conf))
+                    conf_thresh, color = views(view_mode, int(float(conf)))
 
-                    if int(conf) > conf_thresh:
+                    if int(float(conf)) > conf_thresh:
                         cv2.rectangle(frame, (x, y), (w + x, h + y), color, thickness=1)
                         text = text + ' ' + word
 
