@@ -1,4 +1,5 @@
 import argparse
+import os
 
 import OCR
 import Linguist
@@ -56,10 +57,20 @@ def main():
     if args.show_views:
         print(OCR.views.__doc__)
 
+    tess_path = os.path.normpath(args.tess_path)
     # This is where OCR is started...
-    OCR.tesseract_location(args.tess_path)
+    OCR.tesseract_location(tess_path)
     OCR.ocr_stream(view_mode=args.view_mode, source=args.src, crop=args.crop, language=args.language)
 
 
 if __name__ == '__main__':
-    main()  # '/usr/local/Cellar/tesseract/4.1.1/bin/tesseract'
+    # To run in IDE (instead of commamnd line), comment out main() and uncomment the block below:
+    main()
+
+    # tess_path =  r"C:\Program Files\Tesseract-OCR\tesseract.exe"  # Windows example
+    # tess_path = '/usr/local/Cellar/tesseract/4.1.1/bin/tesseract'  # MAC example
+    # view_mode = 1
+    # source = 0
+    # crop = [100, 100]
+    # language = "en"
+    # OCR.ocr_stream(view_mode=view_mode, source=source, crop=crop, language=language)
